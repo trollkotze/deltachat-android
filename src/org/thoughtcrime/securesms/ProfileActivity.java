@@ -203,7 +203,7 @@ public class ProfileActivity extends PassphraseRequiredActionBarActivity
     }
     tabs.add(TAB_GALLERY);
     tabs.add(TAB_DOCS);
-    //tabs.add(TAB_LINKS);
+    tabs.add(TAB_LINKS);
     //if(Prefs.isLocationStreamingEnabled(this)) {
     //  tabs.add(TAB_MAP);
     //}
@@ -265,9 +265,15 @@ public class ProfileActivity extends PassphraseRequiredActionBarActivity
           args.putSerializable(ProfileGalleryFragment.LOCALE_EXTRA, dynamicLanguage.getCurrentLocale());
           break;
 
+        case TAB_LINKS:
+          fragment = new ProfileLinksFragment();
+          args.putInt(ProfileLinksFragment.CHAT_ID_EXTRA, (chatId==0&&!isGlobalProfile())? -1 : chatId);
+          args.putSerializable(ProfileLinksFragment.LOCALE_EXTRA, dynamicLanguage.getCurrentLocale());
+          break;
+
         default:
           fragment = new ProfileDocumentsFragment();
-          args.putInt(ProfileGalleryFragment.CHAT_ID_EXTRA, (chatId==0&&!isGlobalProfile())? -1 : chatId);
+          args.putInt(ProfileDocumentsFragment.CHAT_ID_EXTRA, (chatId==0&&!isGlobalProfile())? -1 : chatId);
           args.putSerializable(ProfileDocumentsFragment.LOCALE_EXTRA, dynamicLanguage.getCurrentLocale());
           break;
       }
