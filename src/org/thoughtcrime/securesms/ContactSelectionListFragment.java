@@ -256,7 +256,7 @@ public class ContactSelectionListFragment extends    Fragment
       .show();
   }
 
-  private ContactSelectionListAdapter getContactSelectionListAdapter() {
+  protected ContactSelectionListAdapter getContactSelectionListAdapter() {
     return (ContactSelectionListAdapter) recyclerView.getAdapter();
   }
 

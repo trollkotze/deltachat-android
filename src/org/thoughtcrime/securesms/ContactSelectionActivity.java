@@ -37,7 +37,8 @@ import java.lang.ref.WeakReference;
  */
 public abstract class ContactSelectionActivity extends PassphraseRequiredActionBarActivity
                                                implements SwipeRefreshLayout.OnRefreshListener,
-                                                          ContactSelectionListFragment.OnContactSelectedListener
+                                                          ContactSelectionListFragment.OnContactSelectedListener,
+                                                          ContactFilterToolbar.OnFilterChangedListener
 {
   private static final String TAG = ContactSelectionActivity.class.getSimpleName();
 
@@ -92,8 +93,11 @@ public abstract class ContactSelectionActivity extends PassphraseRequiredActionB
   }
 
   private void initializeSearch() {
-    toolbar.setOnFilterChangedListener(filter -> contactsFragment.setQueryFilter(filter));
+    toolbar.setOnFilterChangedListener(this);
   }
+
+  @Override
+  public void onFilterChanged(String filter) {contactsFragment.setQueryFilter(filter);}
 
   @Override
   public void onRefresh() {

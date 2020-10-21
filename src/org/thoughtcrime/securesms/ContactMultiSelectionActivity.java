@@ -21,6 +21,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +36,7 @@ public class ContactMultiSelectionActivity extends ContactSelectionActivity {
 
   @SuppressWarnings("unused")
   private final static String TAG = ContactMultiSelectionActivity.class.getSimpleName();
+  private View addMembers;
 
   @Override
   protected void onCreate(Bundle icicle, boolean ready) {
@@ -53,6 +55,7 @@ public class ContactMultiSelectionActivity extends ContactSelectionActivity {
     menu.clear();
 
     inflater.inflate(R.menu.add_members, menu);
+    addMembers = findViewById(R.id.menu_add_members);
     super.onPrepareOptionsMenu(menu);
     return true;
   }
@@ -88,5 +91,17 @@ public class ContactMultiSelectionActivity extends ContactSelectionActivity {
     }
 
     setResult(RESULT_OK, resultIntent);
+  }
+
+  @Override
+  public void onFilterChanged(String filter) {
+    super.onFilterChanged(filter);
+    if (addMembers != null) {
+      if (filter == null || "".equals(filter)) {
+        addMembers.setVisibility(View.GONE);
+      } else {
+        addMembers.setVisibility(View.VISIBLE);
+      }
+    }
   }
 }
