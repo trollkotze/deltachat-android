@@ -73,7 +73,7 @@ public class ConversationListActivity extends PassphraseRequiredActionBarActivit
   private final DynamicLanguage dynamicLanguage = new DynamicLanguage();
 
   private ConversationListFragment conversationListFragment;
-  private TextView                 title;
+  public TextView                 title;
   private SearchFragment           searchFragment;
   private SearchToolbar            searchToolbar;
   private ImageView                searchAction;
