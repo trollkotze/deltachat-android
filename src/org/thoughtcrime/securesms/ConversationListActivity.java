@@ -73,7 +73,7 @@ public class ConversationListActivity extends PassphraseRequiredActionBarActivit
   private final DynamicLanguage dynamicLanguage = new DynamicLanguage();
 
   private ConversationListFragment conversationListFragment;
-  public TextView                 title;
+  public TextView                  title;
   private SearchFragment           searchFragment;
   private SearchToolbar            searchToolbar;
   private ImageView                searchAction;
@@ -109,6 +109,7 @@ public class ConversationListActivity extends PassphraseRequiredActionBarActivit
     conversationListFragment = initFragment(R.id.fragment_container, new ConversationListFragment(), dynamicLanguage.getCurrentLocale(), bundle);
 
     initializeSearchListener();
+    initializeToolbarListener(toolbar);
 
     TooltipCompat.setTooltipText(searchAction, getText(R.string.search_explain));
     refresh();
@@ -124,6 +125,15 @@ public class ConversationListActivity extends PassphraseRequiredActionBarActivit
   }
 
   private void refresh() {
+    refreshTitle();
+    handleOpenpgp4fpr();
+
+    if (getIntent().getBooleanExtra(CLEAR_NOTIFICATIONS, false)) {
+      DcHelper.getContext(this).notificationCenter.removeAllNotifiations();
+    }
+  }
+
+  public void refreshTitle() {
     if (isRelayingMessageContent(this)) {
       title.setText(isForwarding(this) ? R.string.forward_to : R.string.chat_share_with_title);
       getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -131,13 +141,11 @@ public class ConversationListActivity extends PassphraseRequiredActionBarActivit
         openConversation(getDirectSharingChatId(this), -1);
       }
     } else {
-      title.setText(R.string.app_name);
+      int connectivity = DcHelper.getContext(this).getConnectivity();
+      if (connectivity == DcContext.DC_CONNECTIVITY_NOT_CONNECTED) title.setText(R.string.connectivity_not_connected);
+      if (connectivity == DcContext.DC_CONNECTIVITY_CONNECTING) title.setText(R.string.connectivity_connecting);
+      if (connectivity == DcContext.DC_CONNECTIVITY_CONNECTED) title.setText(R.string.app_name);
       getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-    }
-    handleOpenpgp4fpr();
-
-    if (getIntent().getBooleanExtra(CLEAR_NOTIFICATIONS, false)) {
-      DcHelper.getContext(this).notificationCenter.removeAllNotifiations();
     }
   }
 
@@ -209,6 +217,14 @@ public class ConversationListActivity extends PassphraseRequiredActionBarActivit
     });
   }
 
+  private void initializeToolbarListener(Toolbar toolbar) {
+    toolbar.setOnClickListener(v -> {
+      if (DcHelper.getContext(this).getConnectivity() != DcContext.DC_CONNECTIVITY_CONNECTED) {
+        startActivity(new Intent(this, ConnectivityActivity.class));
+      }
+    });
+  }
+
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
     super.onOptionsItemSelected(item);
@@ -258,8 +274,7 @@ public class ConversationListActivity extends PassphraseRequiredActionBarActivit
 
   private void handleResetRelaying() {
     resetRelayingMessageContent(this);
-    title.setText(R.string.app_name);
-    getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+    refreshTitle();
     conversationListFragment.onNewIntent();
     invalidateOptionsMenu();
   }

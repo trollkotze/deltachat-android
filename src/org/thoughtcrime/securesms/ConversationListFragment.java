@@ -26,7 +26,6 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -613,16 +612,12 @@ public class ConversationListFragment extends Fragment
   @Override
   public void handleEvent(DcEvent event) {
     if (event.getId() == 2062) {
-      Log.e("dbg", "connectivity "+event.getData1Int());
-      String title = "";
-      if (event.getData1Int() == 1)  title = "Error";
-      if (event.getData1Int() == 2)  title = "Not Connected";
-      if (event.getData1Int() == 3)  title = "Connecting...";
-      if (event.getData1Int() == 4)  title = "Connected";
-      ((ConversationListActivity) getActivity()).title.setText(title);
-    } else
+      ((ConversationListActivity) getActivity()).refreshTitle();
+    } else {
       getLoaderManager().restartLoader(0, null, this);
+    }
   }
+
 }
 
 

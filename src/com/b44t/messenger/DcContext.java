@@ -72,6 +72,10 @@ public class DcContext {
     public final static int DC_DECISION_BLOCK      = 1;
     public final static int DC_DECISION_NOT_NOW    = 2;
 
+    public final static int DC_CONNECTIVITY_NOT_CONNECTED = 0;
+    public final static int DC_CONNECTIVITY_CONNECTING = 1;
+    public final static int DC_CONNECTIVITY_CONNECTED = 2;
+
     public DcContext(String osName, String dbfile) {
         contextCPtr = createContextCPtr(osName, dbfile);
     }
@@ -112,6 +116,8 @@ public class DcContext {
     @Deprecated public String  getConfig            (String key, String def) { return getConfig(key); }
     @Deprecated public int     getConfigInt         (String key, int def) { return getConfigInt(key); }
     public native String       getInfo              ();
+    public native int          getConnectivity      ();
+    public native String       getConnectivityHtml  ();
     public native String       getOauth2Url         (String addr, String redirectUrl);
     public native String       initiateKeyTransfer  ();
     public native boolean      continueKeyTransfer  (int msg_id, String setup_code);
