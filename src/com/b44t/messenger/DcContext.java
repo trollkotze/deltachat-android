@@ -1,5 +1,10 @@
 package com.b44t.messenger;
 
+import android.content.Context;
+
+import org.thoughtcrime.securesms.R;
+import org.thoughtcrime.securesms.connect.DcHelper;
+
 public class DcContext {
 
     public final static int DC_PREF_DEFAULT_MDNS_ENABLED = 1;
@@ -190,6 +195,14 @@ public class DcContext {
 
     // helper to get/return strings from/to handleEvent()
     public native static boolean data2IsString(int event);
+
+    public static String getConnectivitySummary(Context context) {
+        int connectivity = DcHelper.getContext(context).getConnectivity();
+        if (connectivity == DcContext.DC_CONNECTIVITY_NOT_CONNECTED) return context.getString(R.string.connectivity_not_connected);
+        if (connectivity == DcContext.DC_CONNECTIVITY_CONNECTING) return context.getString(R.string.connectivity_connecting);
+        if (connectivity == DcContext.DC_CONNECTIVITY_CONNECTED) return context.getString(R.string.connectivity_connected);
+        return "[invalid connectivity]";
+    }
 
     // working with raw c-data
     private long        contextCPtr;     // CAVE: the name is referenced in the JNI
