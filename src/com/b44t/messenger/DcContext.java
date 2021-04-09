@@ -196,11 +196,20 @@ public class DcContext {
     // helper to get/return strings from/to handleEvent()
     public native static boolean data2IsString(int event);
 
-    public static String getConnectivitySummary(Context context) {
+    /**
+     * Gets a string you can show to the user with basic information about connectivity.
+     * @param context
+     * @param connectedString Usually "Connected", but when using this as the title in
+     *                        ConversationListActivity, we want to write "Delta Chat" there instead.
+     * @return
+     */
+    public static String getConnectivitySummary(Context context, int connectedString) {
         int connectivity = DcHelper.getContext(context).getConnectivity();
-        if (connectivity == DcContext.DC_CONNECTIVITY_NOT_CONNECTED) return context.getString(R.string.connectivity_not_connected);
-        if (connectivity == DcContext.DC_CONNECTIVITY_CONNECTING) return context.getString(R.string.connectivity_connecting);
-        if (connectivity == DcContext.DC_CONNECTIVITY_CONNECTED) return context.getString(R.string.connectivity_connected);
+        switch (connectivity) {
+            case DcContext.DC_CONNECTIVITY_NOT_CONNECTED: return context.getString(R.string.connectivity_not_connected);
+            case DcContext.DC_CONNECTIVITY_CONNECTING: return context.getString(R.string.connectivity_connecting);
+            case DcContext.DC_CONNECTIVITY_CONNECTED: return context.getString(connectedString);
+        }
         return "[invalid connectivity]";
     }
 

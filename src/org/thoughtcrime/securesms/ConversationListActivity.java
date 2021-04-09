@@ -32,7 +32,6 @@ import androidx.appcompat.widget.TooltipCompat;
 
 import com.b44t.messenger.DcChat;
 import com.b44t.messenger.DcContext;
-import com.b44t.messenger.DcMsg;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
@@ -109,7 +108,7 @@ public class ConversationListActivity extends PassphraseRequiredActionBarActivit
     conversationListFragment = initFragment(R.id.fragment_container, new ConversationListFragment(), dynamicLanguage.getCurrentLocale(), bundle);
 
     initializeSearchListener();
-    initializeToolbarListener(toolbar);
+    initializeTitleListener();
 
     TooltipCompat.setTooltipText(searchAction, getText(R.string.search_explain));
     refresh();
@@ -141,10 +140,7 @@ public class ConversationListActivity extends PassphraseRequiredActionBarActivit
         openConversation(getDirectSharingChatId(this), -1);
       }
     } else {
-      int connectivity = DcHelper.getContext(this).getConnectivity();
-      if (connectivity == DcContext.DC_CONNECTIVITY_NOT_CONNECTED) title.setText(R.string.connectivity_not_connected);
-      if (connectivity == DcContext.DC_CONNECTIVITY_CONNECTING) title.setText(R.string.connectivity_connecting);
-      if (connectivity == DcContext.DC_CONNECTIVITY_CONNECTED) title.setText(R.string.app_name);
+      title.setText(DcContext.getConnectivitySummary(this, R.string.app_name));
       getSupportActionBar().setDisplayHomeAsUpEnabled(false);
     }
   }
@@ -217,8 +213,8 @@ public class ConversationListActivity extends PassphraseRequiredActionBarActivit
     });
   }
 
-  private void initializeToolbarListener(Toolbar toolbar) {
-    toolbar.setOnClickListener(v -> {
+  private void initializeTitleListener() {
+    title.setOnClickListener(v -> {
       if (DcHelper.getContext(this).getConnectivity() != DcContext.DC_CONNECTIVITY_CONNECTED) {
         startActivity(new Intent(this, ConnectivityActivity.class));
       }

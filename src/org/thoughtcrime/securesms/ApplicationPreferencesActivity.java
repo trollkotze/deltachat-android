@@ -184,7 +184,7 @@ public class ApplicationPreferencesActivity extends PassphraseRequiredActionBarA
     public void handleEvent(DcEvent event) {
       // connectivity changed
       this.findPreference(PREFERENCE_CATEGORY_CONNECTIVITY)
-              .setSummary(DcContext.getConnectivitySummary(getActivity()));
+              .setSummary(DcContext.getConnectivitySummary(getActivity(), R.string.connectivity_connected));
     }
 
     private void setCategorySummaries() {
@@ -197,7 +197,7 @@ public class ApplicationPreferencesActivity extends PassphraseRequiredActionBarA
       this.findPreference(PREFERENCE_CATEGORY_CHATS)
           .setSummary(ChatsPreferenceFragment.getSummary(getActivity()));
       this.findPreference(PREFERENCE_CATEGORY_CONNECTIVITY)
-          .setSummary(DcContext.getConnectivitySummary(getActivity()));
+          .setSummary(DcContext.getConnectivitySummary(getActivity(), R.string.connectivity_connected));
       this.findPreference(PREFERENCE_CATEGORY_HELP)
           .setSummary(AdvancedPreferenceFragment.getVersion(getActivity()));
     }
