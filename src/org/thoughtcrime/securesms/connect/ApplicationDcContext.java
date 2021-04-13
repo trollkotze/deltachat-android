@@ -141,7 +141,6 @@ public class ApplicationDcContext extends DcContext {
     setStockTranslation(42, context.getString(R.string.autocrypt_asm_subject));
     setStockTranslation(43, context.getString(R.string.autocrypt_asm_general_body));
     setStockTranslation(60, context.getString(R.string.login_error_cannot_login));
-    setStockTranslation(61, context.getString(R.string.login_error_server_response));
     setStockTranslation(62, context.getString(R.string.systemmsg_action_by_user));
     setStockTranslation(63, context.getString(R.string.systemmsg_action_by_me));
     setStockTranslation(68, context.getString(R.string.device_talk));

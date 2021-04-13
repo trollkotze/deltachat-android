@@ -455,8 +455,6 @@
     <string name="import_backup_no_backup_found">No backups found.\n\nCopy the backup to \"%1$s\" and try again. Alternatively, press \"Start messaging\" to continue with the normal setup process.</string>
     <!-- Translators: %1$s will be replaced by the email address -->
     <string name="login_error_cannot_login">Cannot login as \"%1$s\". Please check if the email address and the password are correct.</string>
-    <!-- Translators: %1$s will be replaced by the server name (eg. imap.somewhere.org) and %2$s will be replaced by the human-readable response from the server. this response may be a single word or some sentences and may or may not be localized. -->
-    <string name="login_error_server_response">Response from %1$s: %2$s\n\nSome providers may email you additional information about this problem; you should be able to check your inbox using your regular email app or web site. Consult your provider or friends if you run into problems.</string>
     <!-- TLS certificate checks -->
     <string name="accept_invalid_certificates">Accept invalid certificates</string>
     <string name="used_settings">Used settings:</string>
