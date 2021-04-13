@@ -402,16 +402,7 @@ public class ApplicationDcContext extends DcContext {
       if (showAsToast) {
         String toastString = null;
 
-        if (event == DC_EVENT_ERROR_NETWORK) {
-          if (isNetworkConnected()) {
-            toastString = string;
-            showNetworkErrors = true;
-          } else if (showNetworkErrors) {
-            toastString = context.getString(R.string.error_no_network);
-            showNetworkErrors = false;
-          }
-        }
-        else if (event == DC_EVENT_ERROR_SELF_NOT_IN_GROUP) {
+        if (event == DC_EVENT_ERROR_SELF_NOT_IN_GROUP) {
           toastString = context.getString(R.string.group_self_not_in_group);
         }
 
@@ -435,10 +426,6 @@ public class ApplicationDcContext extends DcContext {
         break;
 
       case DC_EVENT_ERROR:
-        handleError(id, event.getData2Str());
-        break;
-
-      case DC_EVENT_ERROR_NETWORK:
         handleError(id, event.getData2Str());
         break;
 
