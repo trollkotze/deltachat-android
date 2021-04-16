@@ -140,7 +140,7 @@ public class ConversationListActivity extends PassphraseRequiredActionBarActivit
         openConversation(getDirectSharingChatId(this), -1);
       }
     } else {
-      title.setText(DcContext.getConnectivitySummary(this, R.string.app_name));
+      title.setText(DcHelper.getConnectivitySummary(this, R.string.app_name));
       getSupportActionBar().setDisplayHomeAsUpEnabled(false);
     }
   }

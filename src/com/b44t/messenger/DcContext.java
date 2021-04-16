@@ -1,10 +1,5 @@
 package com.b44t.messenger;
 
-import android.content.Context;
-
-import org.thoughtcrime.securesms.R;
-import org.thoughtcrime.securesms.connect.DcHelper;
-
 public class DcContext {
 
     public final static int DC_PREF_DEFAULT_MDNS_ENABLED = 1;
@@ -194,23 +189,6 @@ public class DcContext {
 
     // helper to get/return strings from/to handleEvent()
     public native static boolean data2IsString(int event);
-
-    /**
-     * Gets a string you can show to the user with basic information about connectivity.
-     * @param context
-     * @param connectedString Usually "Connected", but when using this as the title in
-     *                        ConversationListActivity, we want to write "Delta Chat" there instead.
-     * @return
-     */
-    public static String getConnectivitySummary(Context context, int connectedString) {
-        int connectivity = DcHelper.getContext(context).getConnectivity();
-        switch (connectivity) {
-            case DcContext.DC_CONNECTIVITY_NOT_CONNECTED: return context.getString(R.string.connectivity_not_connected);
-            case DcContext.DC_CONNECTIVITY_CONNECTING: return context.getString(R.string.connectivity_connecting);
-            case DcContext.DC_CONNECTIVITY_CONNECTED: return context.getString(connectedString);
-        }
-        return "[invalid connectivity]";
-    }
 
     // working with raw c-data
     private long        contextCPtr;     // CAVE: the name is referenced in the JNI

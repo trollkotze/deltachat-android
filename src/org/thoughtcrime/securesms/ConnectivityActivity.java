@@ -36,7 +36,7 @@ public class ConnectivityActivity extends WebViewActivity implements DcEventCent
   }
 
   private void refresh() {
-    String connectivity = DcContext.getConnectivitySummary(this, R.string.connectivity_connected);
+    String connectivity = DcHelper.getConnectivitySummary(this, R.string.connectivity_connected);
     getSupportActionBar().setTitle(getString(R.string.connectivity) + " | " + connectivity);
 
     String finalHtml = DcHelper.getContext(this).getConnectivityHtml();
